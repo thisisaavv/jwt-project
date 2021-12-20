@@ -1,0 +1,13 @@
+<%- include('templates/header', {titulo: 'Admin' }) %>
+	<h1>Hola admin</h1>
+	<p>
+		<% const {name, id}=user %>
+			<h2>
+				<%= name %>
+			</h2>
+			<h2>
+				<%= id %>
+			</h2>
+	</p>
+
+<%- include('templates/footer') %>

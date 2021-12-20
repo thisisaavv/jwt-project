@@ -1,0 +1,80 @@
+<%- include('templates/header', {titulo: 'Login' }) %>
+
+	<div class="container container_form">
+
+		<form id="form" class="mt-5 pb-3">
+			<h3 class="text-center">Login</h3>
+
+			<!-- En caso de que haya un error -->
+			<div class="error_div text-center py-2 my-3" id="error_div">
+				<span></span>
+			</div>
+			<!-- Fin del error -->
+
+			<div class="form-group">
+				<label for="exampleInputEmail1">Email address</label>
+				<input type="email" name="email" class="form-control" id="exampleInputEmail1"
+					aria-describedby="emailHelp" placeholder="Enter email">
+
+			</div>
+			<div class="form-group">
+				<label for="exampleInputPassword1">Password</label>
+				<input type="password" name="password" class="form-control" id="exampleInputPassword1"
+					placeholder="Password">
+			</div>
+
+			<button type="submit" class="btn btn-primary d-block w-100">Entrar</button>
+		</form>
+
+	</div>
+
+	<script>
+
+		const form = document.getElementById('form')
+		const error_div = document.getElementById('error_div')
+
+		form.addEventListener('submit', async (e) => {
+			e.preventDefault();
+			const email = form.email.value;
+			const password = form.password.value;
+
+			fetch('/api/auth/login', {
+				method: 'post',
+				headers: {
+					'Content-Type': 'application/json',
+				},
+				body: JSON.stringify({ email, password })
+			})
+				.then(res => res.json())
+				.then(data => {
+					const { error } = data;
+
+					if (error == null) {
+						localStorage.setItem('token', data.token)
+						/*
+						let myHeaders = new Headers()
+						myHeaders.append('Content-Type', 'application/json')
+						let myInit = {
+						  method: 'GET',
+						  headers: myHeaders,
+						  
+						}
+						*/
+
+						location.href = "/api/admin"
+
+					} else {
+						console.log(data)
+						// error_div.children
+						error_div.children[0].textContent = data.mensaje;
+						error_div.style.display = 'block';
+					}
+
+				})
+
+		})
+
+
+	</script>
+
+	<%- include('templates/footer') %>

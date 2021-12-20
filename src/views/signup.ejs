@@ -1,0 +1,88 @@
+<%- include('templates/header', {titulo: 'Register' }) %>
+
+
+	<div class="container container_form">
+
+		<form id="form" class="mt-5 pb-3">
+			<h3 class="text-center">Register</h3>
+
+			<!-- En caso de que haya un error -->
+			<div class="error_div text-center py-2 my-3" id="error_div">
+				<span></span>
+			</div>
+			<div class="registrado_div text-center py-2 my-3" id="registrado_div">
+				<span></span>
+			</div>
+			<!-- Fin del error -->
+
+			<div class="form-group">
+				<label for="exampleInputEmail1">Name</label>
+				<input type="text" name="name" class="form-control" id="exampleInputName1" aria-describedby="emailHelp"
+					placeholder="Enter name">
+
+			</div>
+			<div class="form-group">
+				<label for="exampleInputEmail1">Email address</label>
+				<input type="email" name="email" class="form-control" id="exampleInputEmail1"
+					aria-describedby="emailHelp" placeholder="Enter email">
+
+			</div>
+			<div class="form-group">
+				<label for="exampleInputPassword1">Password</label>
+				<input type="password" name="password" class="form-control" id="exampleInputPassword1"
+					placeholder="Password">
+			</div>
+
+			<button type="submit" class="btn btn-primary d-block w-100">Entrar</button>
+		</form>
+
+	</div>
+
+
+	<script>
+		const form = document.getElementById('form')
+		const error_div = document.getElementById('error_div')
+		const registrado_div = document.getElementById('registrado_div')
+
+		form.addEventListener('submit', async (e) => {
+			e.preventDefault();
+			const email = form.email.value;
+			const password = form.password.value;
+			const name = form.name.value;
+			console.log(name)
+
+			fetch('/api/auth/signup', {
+				method: 'post',
+				headers: {
+					'Content-Type': 'application/json'
+				},
+				body: JSON.stringify({ name, email, password })
+			})
+				.then(res => res.json())
+				.then(data => {
+					const { error } = data;
+
+					if (error == null) {
+						console.log(data)
+						// error_div.children
+						registrado_div.children[0].textContent = data.mensaje;
+						error_div.style.display = 'none'
+						registrado_div.style.display = 'block'
+
+						form.reset();
+
+					} else {
+						error_div.children[0].textContent = data.mensaje;
+						error_div.style.display = 'block';
+						registrado_div.style.display = 'none'
+					}
+
+				})
+
+		})
+
+
+	</script>
+
+
+	<%- include('templates/footer') %>

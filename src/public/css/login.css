@@ -1,0 +1,18 @@
+body {
+    background: #2C394B;
+}
+
+.container_form{
+    background: #98BAE7;
+    width: 30vw;
+}
+
+.error_div{
+    background: rgba(212, 131, 131, 0.733);
+    display: none;
+}
+
+.registrado_div{
+    background: rgba(110, 189, 110, 0.699);
+    display: none;
+}

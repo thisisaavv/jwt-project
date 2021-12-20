@@ -1,0 +1,58 @@
+// Get Several Users
+GET http://localhost:3000/api/users HTTP/1.1
+
+###
+
+// Get One User
+GET http://localhost:3000/api/users/usertest HTTP/1.1
+
+###
+
+// Create One User
+POST http://localhost:3000/api/users HTTP/1.1
+content-type: application/json
+
+{
+    "fullName": "Usuario de Pruebas",
+    "email": "usertest@jwtproject.com",
+    "username": "usertest",
+    "password": "password",
+    "role": "member"
+}
+
+###
+
+// Update One User
+PUT http://localhost:3000/api/users/usertest HTTP/1.1
+content-type: application/json
+authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InVzZXJ0ZXN0IiwiZW1haWwiOiJ1c2VydGVzdEBqd3Rwcm9qZWN0LmNvbSIsInJvbGUiOiJtZW1iZXIiLCJpYXQiOjE2Mzk5Nzc0NDMsImV4cCI6MTY0MDA2Mzg0M30.qyTQ-iTnbfeRV-h-tyAq72ZZcO5cKqtXgybFTBr7t6c
+
+{
+    "fullName": "Usuario de Pruebas Actualizado 2"
+}
+
+###
+
+// Delete One User
+DELETE http://localhost:3000/api/users/usertest HTTP/1.1
+
+###
+
+// Delete Several Users
+DELETE http://localhost:3000/api/users HTTP/1.1
+
+###
+
+// Login
+POST http://localhost:3000/api/auth/login HTTP/1.1
+content-type: application/json
+
+{
+    "username": "usertest",
+    "password": "password"
+}
+
+###
+
+// Logout
+POST http://localhost:3000/api/auth/logout HTTP/1.1
